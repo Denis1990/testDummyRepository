@@ -2,7 +2,7 @@ node {
     commit_base_url = "https://github.com/Denis1990/testDummyRepository/commit/"
     try {
         stage("Clone") {
-             git credentialsId: '7d5b28d3-190a-43ee-8bf7-4ec49e5a5969', url: 'denis@192.168.2.7:/home/denis/Projects/testDummyRepository'
+             git credentialsId: '1df7eaef-1aa8-464f-96cd-1d3140d78817', url: 'git@github.com:Denis1990/testDummyRepository.git'
         }
 
         stage("Build") {
