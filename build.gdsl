@@ -35,7 +35,7 @@ node {
                     compressLog: true,
                     body: bodyTxt,
                     subject: "$JOB_NAME - Build # $BUILD_NUMBER - $currentBuild.currentResult!",
-                    to: 'dmone@atypon.com'
+                    to: 'monedenis@gmail.com'
             )
         }
     }
