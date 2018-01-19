@@ -1,4 +1,4 @@
-node("qa21") {
+node {
     commit_base_url = "https://www.github.com/atypon/testDummyRepository/commit/"
     try {
         stage("Clone") {
