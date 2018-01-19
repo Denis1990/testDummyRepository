@@ -3,7 +3,7 @@ node {
     try {
         stage("Clone") {
              //git 'file:///home/denis/Projects/testDummyRepository'
-             git 'git denis@192.168.2.7:/home/denis/Projects/testDummyRepository'
+             git credentialsId: '7d5b28d3-190a-43ee-8bf7-4ec49e5a5969', 'git denis@192.168.2.7:/home/denis/Projects/testDummyRepository'
         }
 
         stage("Build") {
