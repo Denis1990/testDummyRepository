@@ -1,9 +1,8 @@
 node {
-    commit_base_url = "https://www.github.com/atypon/testDummyRepository/commit/"
+    commit_base_url = "https://github.com/Denis1990/testDummyRepository/commit/"
     try {
         stage("Clone") {
-             //git 'file:///home/denis/Projects/testDummyRepository'
-             git credentialsId: '7d5b28d3-190a-43ee-8bf7-4ec49e5a5969', 'git denis@192.168.2.7:/home/denis/Projects/testDummyRepository'
+             git credentialsId: '7d5b28d3-190a-43ee-8bf7-4ec49e5a5969', url: 'denis@192.168.2.7:/home/denis/Projects/testDummyRepository'
         }
 
         stage("Build") {
