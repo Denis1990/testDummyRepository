@@ -2,7 +2,7 @@ node {
     commit_base_url = "https://www.github.com/atypon/testDummyRepository/commit/"
     try {
         stage("Clone") {
-             git '/home/denis/Projects/testDummyRepository'
+             git 'file:///home/denis/Projects/testDummyRepository'
         }
 
         stage("Build") {
