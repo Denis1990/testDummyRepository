@@ -1,0 +1,62 @@
+node("qa21") {
+    commit_base_url = "https://www.github.com/atypon/testDummyRepository/commit/"
+    try {
+        stage("Clone") {
+             git '/home/denis/Projects/testDummyRepository'
+        }
+
+        stage("Build") {
+            timestamps {
+                withMaven(maven: 'mvn_3') {
+                    sh "mvn compile"
+                }
+            }
+        }
+
+        stage("Test") {
+            timestamps {
+                withMaven(maven: 'mvn_3') {
+                    sh "mvn test"
+                }
+            }
+        }
+
+    } catch(error) {
+
+    } finally {
+//        bodyTxt = '\nBuild job $JOB_BASE_NAME $BUILD_NUMBER completed in ${currentBuild.durationString}.\n\n\n${CHANGES_SINCE_LAST_SUCCESS}\n\n${GIT_REVISION}'
+        bodyTxt = constructChanges()
+        // TODO parametrize message based on build status
+        stage('Notify') {
+            emailext(
+                    mimeType: "text/html",
+                    attachLog: true,
+                    compressLog: true,
+                    body: bodyTxt,
+                    subject: "$JOB_NAME - Build # $BUILD_NUMBER - $currentBuild.currentResult!",
+                    to: 'dmone@atypon.com'
+            )
+        }
+    }
+}
+
+
+@NonCPS
+def constructChanges() {
+    def changeLogSets = currentBuild.changeSets
+    def msg ="Changes since last build.</br>"
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            msg += "Commit ${entry.commitId.substring(0,8)} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}  <a href='${commit_base_url + entry.commitId}'>github link</a></br>"
+            echo "$msg"
+            def files = new ArrayList(entry.affectedFiles)
+            for (int k = 0; k < files.size(); k++) {
+                def file = files[k]
+                echo "  ${file.editType.name} ${file.path}"
+            }
+        }
+    }
+    return msg
+}
