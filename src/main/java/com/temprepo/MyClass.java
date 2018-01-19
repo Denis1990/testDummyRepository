@@ -10,5 +10,9 @@ public class MyClass {
     public int incr() {
         return this.x++;
     }
+
+    public int decr() {
+    	return this.x--;
+    }
 }
 
