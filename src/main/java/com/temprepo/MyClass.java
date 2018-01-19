@@ -11,6 +11,9 @@ public class MyClass {
         return this.x++;
     }
 
+    /**
+     * Documentation
+     */
     public int decr() {
     	return this.x--;
     }
